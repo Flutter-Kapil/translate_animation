@@ -37,6 +37,7 @@ class _TranslateAppState extends State<TranslateApp>
             Stack(
               children: <Widget>[
                 Container(
+                  key: Key('yellow'),
                   child: Transform.translate(
                     offset: Tween<Offset>(
                             begin: Offset(280.0, 0.0), end: Offset(0.0, 0.0))
@@ -58,10 +59,9 @@ class _TranslateAppState extends State<TranslateApp>
                   ),
                 ),
                 Container(
-                  child: SlideTransition(
-                    position: Tween<Offset>(
-                            begin: Offset(0.0, 0.0), end: Offset(280.0, 0.0))
-                        .animate(myController),
+                  key: Key('red'),
+                  child: Transform.translate(
+                    offset: Offset(myController.value, 0.0),
                     child: Container(
                       height: 100.0,
                       width: 100.0,
