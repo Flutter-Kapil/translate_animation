@@ -11,6 +11,8 @@ class TranslateApp extends StatefulWidget {
 
 class _TranslateAppState extends State<TranslateApp>
     with SingleTickerProviderStateMixin {
+  int count = 0;
+
   String translateFrom = 'English';
   String translateTo = 'Indonesia';
   AnimationController myController;
@@ -19,7 +21,7 @@ class _TranslateAppState extends State<TranslateApp>
   @override
   void initState() {
     myController =
-        AnimationController(duration: Duration(milliseconds: 600), vsync: this);
+        AnimationController(duration: Duration(milliseconds: 900), vsync: this);
     myController.addListener(() {
       setState(() {});
     });
@@ -28,51 +30,75 @@ class _TranslateAppState extends State<TranslateApp>
 
   @override
   Widget build(BuildContext context) {
+    count++;
+    print("count right now is $count");
     CurvedAnimation smoothAnimation =
         CurvedAnimation(parent: myController, curve: Curves.bounceOut);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Google Translate'),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(12),
-        height: 70,
-        child: Stack(
+        leading: Icon(Icons.menu),
+        title: Row(
           children: <Widget>[
-            Align(
-              alignment: Alignment(
-                  Tween(begin: -1.0, end: 1.0).transform(myController.value),
-                  0.0),
-              child: translatedFromDwnBtn(),
+            Text(
+              'Google',
+              style: TextStyle(fontFamily: 'ProductSansBold'),
             ),
-            Align(
-              alignment: Alignment(0.0, 0.0),
-              child: Transform.rotate(
-                angle:
-                    Tween(begin: 0.0, end: 6.3).transform(myController.value),
-                child: IconButton(
-                  onPressed: () {
-                    myController.reverse();
-                  },
-                  icon: Icon(Icons.compare_arrows),
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment(
-                  Tween(begin: 1.0, end: -1.0).transform(myController.value),
-                  0.0),
-              child: translatedToDwnBtn(),
+            Text(
+              'Translate',
+              style: TextStyle(fontFamily: 'ProductSansRegular'),
             ),
           ],
         ),
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey))),
+            padding: EdgeInsets.fromLTRB(12, 0.0, 12.0, 0),
+            child: Stack(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment(
+                      Tween(begin: -1.0, end: 1.0)
+                          .transform(myController.value),
+                      0.0),
+                  child: translatedFromDwnBtn(),
+                ),
+                Align(
+                  alignment: Alignment(0.0, 0.0),
+                  child: Transform.rotate(
+                    angle: Tween(begin: 0.0, end: 6.3)
+                        .transform(myController.value),
+                    child: IconButton(
+                      onPressed: () {
+                        myController.forward();
+                      },
+                      icon: Icon(Icons.compare_arrows),
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment(
+                      Tween(begin: 1.0, end: -1.0)
+                          .transform(myController.value),
+                      0.0),
+                  child: translatedToDwnBtn(),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   DropdownButton<String> translatedFromDwnBtn() {
     return DropdownButton(
+      underline: Container(color: Colors.white, height: 1.0),
+      style: TextStyle(color: Colors.blue),
+      iconEnabledColor: Colors.blue,
       value: translateFrom,
       elevation: 5,
       onChanged: (selectedLanguage) {
@@ -91,6 +117,9 @@ class _TranslateAppState extends State<TranslateApp>
 
   DropdownButton<String> translatedToDwnBtn() {
     return DropdownButton(
+      underline: Container(color: Colors.white, height: 1.0),
+      style: TextStyle(color: Colors.blue),
+      iconEnabledColor: Colors.blue,
       value: translateTo,
       elevation: 5,
       onChanged: (selectedLanguage) {
