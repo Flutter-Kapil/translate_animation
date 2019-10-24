@@ -11,6 +11,8 @@ class TranslateApp extends StatefulWidget {
 
 class _TranslateAppState extends State<TranslateApp>
     with SingleTickerProviderStateMixin {
+  String translateFrom = 'English';
+  String translateTo = 'Indonesia';
   AnimationController myController;
   Animation<Offset> tweenOffSet;
 
@@ -33,67 +35,71 @@ class _TranslateAppState extends State<TranslateApp>
         title: Text('Google Translate'),
       ),
       body: Container(
-        width: double.infinity,
-        child: Column(
+        padding: EdgeInsets.all(12),
+        height: 70,
+        child: Stack(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  child: Align(
-                    alignment: Alignment(
-                        Tween(begin: -1.0, end: 1.0)
-                            .transform(myController.value),
-                        0.0),
-                    child: Container(
-                      height: 40.0,
-                      width: 40.0,
-                      color: Colors.yellow,
-                    ),
-                  ),
-                ),
-                Center(
-                  child: FlatButton(
-                    child: Text('Swap'),
-                    onPressed: () {
-                      myController.forward();
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  child: Align(
-                    alignment: Alignment(
-                        Tween(begin: 1.0, end: -1.0)
-                            .transform(myController.value),
-                        0.0),
-                    child: Container(
-                      height: 40.0,
-                      width: 40.0,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-              ],
+            Align(
+              alignment: Alignment(
+                  Tween(begin: -1.0, end: 1.0).transform(myController.value),
+                  0.0),
+              child: translatedFromDwnBtn(),
+            ),
+            Align(
+              alignment: Alignment(0.0, 0.0),
+              child: IconButton(
+                onPressed: () {
+                  myController.forward();
+                },
+                icon: Icon(Icons.compare_arrows),
+                color: Colors.blue,
+              ),
+            ),
+            Align(
+              alignment: Alignment(
+                  Tween(begin: 1.0, end: -1.0).transform(myController.value),
+                  0.0),
+              child: translatedToDwnBtn(),
             ),
           ],
         ),
       ),
     );
   }
-}
 
-//Container translate() {
-//  return Container(
-//    child: Transform.translate(
-//      offset: Tween<Offset>(
-//        begin: const Offset(100.0, 50.0),
-//        end: const Offset(200.0, 300.0),
-//      ).animate(myController),
-//      child: Container(
-//        height: 100.0,
-//        width: 100.0,
-//        color: Colors.yellow,
-//      ),
-//    ),
-//  );
-//}
+  DropdownButton<String> translatedFromDwnBtn() {
+    return DropdownButton(
+      value: translateFrom,
+      elevation: 5,
+      onChanged: (selectedLanguage) {
+        translateFrom = selectedLanguage;
+        setState(() {});
+      },
+      items: ['English', 'Indonesia']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+
+  DropdownButton<String> translatedToDwnBtn() {
+    return DropdownButton(
+      value: translateTo,
+      elevation: 5,
+      onChanged: (selectedLanguage) {
+        translateTo = selectedLanguage;
+        setState(() {});
+      },
+      items: ['English', 'Indonesia']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+}
