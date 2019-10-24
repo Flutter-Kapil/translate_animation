@@ -17,8 +17,10 @@ class _TranslateAppState extends State<TranslateApp>
   @override
   void initState() {
     myController =
-        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
-
+        AnimationController(duration: Duration(milliseconds: 600), vsync: this);
+    myController.addListener(() {
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -37,14 +39,14 @@ class _TranslateAppState extends State<TranslateApp>
             Stack(
               children: <Widget>[
                 Container(
-                  key: Key('yellow'),
-                  child: Transform.translate(
-                    offset: Tween<Offset>(
-                            begin: Offset(280.0, 0.0), end: Offset(0.0, 0.0))
-                        .transform(myController.value),
+                  child: Align(
+                    alignment: Alignment(
+                        Tween(begin: -1.0, end: 1.0)
+                            .transform(myController.value),
+                        0.0),
                     child: Container(
-                      height: 100.0,
-                      width: 100.0,
+                      height: 40.0,
+                      width: 40.0,
                       color: Colors.yellow,
                     ),
                   ),
@@ -59,12 +61,14 @@ class _TranslateAppState extends State<TranslateApp>
                   ),
                 ),
                 Container(
-                  key: Key('red'),
-                  child: Transform.translate(
-                    offset: Offset(myController.value, 0.0),
+                  child: Align(
+                    alignment: Alignment(
+                        Tween(begin: 1.0, end: -1.0)
+                            .transform(myController.value),
+                        0.0),
                     child: Container(
-                      height: 100.0,
-                      width: 100.0,
+                      height: 40.0,
+                      width: 40.0,
                       color: Colors.red,
                     ),
                   ),
