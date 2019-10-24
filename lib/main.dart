@@ -12,7 +12,7 @@ class TranslateApp extends StatefulWidget {
 class _TranslateAppState extends State<TranslateApp>
     with SingleTickerProviderStateMixin {
   int count = 0;
-
+  bool myControllerFwRw = true;
   String translateFrom = 'English';
   String translateTo = 'Indonesia';
   AnimationController myController;
@@ -72,7 +72,13 @@ class _TranslateAppState extends State<TranslateApp>
                         .transform(myController.value),
                     child: IconButton(
                       onPressed: () {
-                        myController.forward();
+                        if (myControllerFwRw) {
+                          myController.forward();
+                          myControllerFwRw = false;
+                        } else if (myControllerFwRw == false) {
+                          myController.reverse();
+                          myControllerFwRw = true;
+                        }
                       },
                       icon: Icon(Icons.compare_arrows),
                       color: Colors.blue,
