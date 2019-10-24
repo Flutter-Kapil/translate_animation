@@ -47,12 +47,16 @@ class _TranslateAppState extends State<TranslateApp>
             ),
             Align(
               alignment: Alignment(0.0, 0.0),
-              child: IconButton(
-                onPressed: () {
-                  myController.forward();
-                },
-                icon: Icon(Icons.compare_arrows),
-                color: Colors.blue,
+              child: Transform.rotate(
+                angle:
+                    Tween(begin: 0.0, end: 6.3).transform(myController.value),
+                child: IconButton(
+                  onPressed: () {
+                    myController.reverse();
+                  },
+                  icon: Icon(Icons.compare_arrows),
+                  color: Colors.blue,
+                ),
               ),
             ),
             Align(
