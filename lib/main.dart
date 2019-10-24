@@ -39,9 +39,12 @@ class _TranslateAppState extends State<TranslateApp>
         leading: Icon(Icons.menu),
         title: Row(
           children: <Widget>[
-            Text(
-              'Google',
-              style: TextStyle(fontFamily: 'ProductSansBold'),
+            Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: Text(
+                'Google',
+                style: TextStyle(fontFamily: 'ProductSansBold'),
+              ),
             ),
             Text(
               'Translate',
