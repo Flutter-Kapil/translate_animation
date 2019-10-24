@@ -70,7 +70,7 @@ class _TranslateAppState extends State<TranslateApp>
                 Align(
                   alignment: Alignment(0.0, 0.0),
                   child: Transform.rotate(
-                    angle: Tween(begin: 0.0, end: 6.3)
+                    angle: Tween(begin: 0.0, end: 3.1)
                         .transform(myController.value),
                     child: IconButton(
                       onPressed: () {
