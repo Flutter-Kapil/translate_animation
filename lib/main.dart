@@ -82,7 +82,7 @@ class _TranslateAppState extends State<TranslateApp>
                           myControllerFwRw = true;
                         }
                       },
-                      icon: Icon(Icons.compare_arrows),
+                      icon: Icon(Icons.swap_horiz),
                       color: Colors.blue,
                     ),
                   ),
