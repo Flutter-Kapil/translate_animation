@@ -61,11 +61,10 @@ class _TranslateAppState extends State<TranslateApp>
             padding: EdgeInsets.fromLTRB(12, 0.0, 12.0, 0),
             child: Stack(
               children: <Widget>[
-                Align(
-                  alignment: Alignment(
-                      Tween(begin: -1.0, end: 1.0)
-                          .transform(myController.value),
-                      0.0),
+                AlignTransition(
+                  alignment: Tween(
+                          begin: Alignment(-1.0, 0.0), end: Alignment(1.0, 0.0))
+                      .animate(myController),
                   child: translatedFromDwnBtn(),
                 ),
                 Align(
@@ -88,11 +87,10 @@ class _TranslateAppState extends State<TranslateApp>
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment(
-                      Tween(begin: 1.0, end: -1.0)
-                          .transform(myController.value),
-                      0.0),
+                AlignTransition(
+                  alignment: Tween(
+                          begin: Alignment(1.0, 0.0), end: Alignment(-1.0, 0.0))
+                      .animate(myController),
                   child: translatedToDwnBtn(),
                 ),
               ],
